@@ -3,14 +3,8 @@
 A multi-agent reinforcement learning system where autonomous drones learn to defend airspace against kamikaze threats — no hardcoded tactics, no communication protocol, no formation logic. Just a shaped reward landscape and PPO.
 
 
+https://github.com/user-attachments/assets/4ee29445-1cc2-4ed6-883b-87f531c86284
 
-https://github.com/user-attachments/assets/d6d783b9-d994-4b68-a776-ca134eb9671d
-
-![](Visualization-video.mp4)
-
-<video src="Visualization-video.mp4" controls="controls" style="max-width: 100%; height: auto;">
-  Your browser does not support the video tag.
-</video>
 
 ## Why This Exists
 
