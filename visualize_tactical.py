@@ -30,17 +30,40 @@ class TacticalVisualizer:
         ground = pv.Plane(center=(25, 25, 0), direction=(0, 0, 1), i_size=75, j_size=75)
         self.plotter.add_mesh(ground, color=(0.1, 0.1, 0.1), specular=0.1)
         
-        # Base Cube aka Command Center
-        base_cube = pv.Cube(center=(25, 25, 2), x_length=4, y_length=4, z_length=4)
-        self.plotter.add_mesh(base_cube, color=RGB_BASE, opacity=0.8, label='Command Center')
-        
-        # Engagement Sphere
-        base_sphere = pv.Sphere(radius=12, center=(25, 25, 0))
-        self.plotter.add_mesh(base_sphere, color=RGB_BASE, opacity=0.15, style='wireframe')
+        '''# 1. Main Hub (Heavy Base)
+        hub = pv.Cube(center=(25, 25, 1.5), x_length=5, y_length=5, z_length=3)
+        self.plotter.add_mesh(hub, color=RGB_BASE, opacity=0.8, specular=0.5)
 
-        # Engagement Sphere 2
-        base_sphere = pv.Sphere(radius=30, center=(25, 25, 0))
-        self.plotter.add_mesh(base_sphere, color=RGB_BASE, opacity=0.10, style='wireframe')
+        # 2. Command Tower (Narrower, taller top)
+        tower = pv.Cube(center=(25, 25, 4), x_length=2, y_length=2, z_length=2)
+        self.plotter.add_mesh(tower, color=RGB_BASE, opacity=0.9, specular=1.0)
+
+        # 3. Radar Dish (A tactical yellow cone on top)
+        radar = pv.Cone(center=(25, 25, 5.5), direction=(0, 0, 1), height=1, radius=1.5)
+        self.plotter.add_mesh(radar, color=(0.75, 0.75, 0.15), opacity=0.8) # Using High-Vis Zinc'''
+
+        # --- COMMAND BUNKER DESIGN ---
+        foundation = pv.Cube(center=(25, 25, 1.0), x_length=4, y_length=4, z_length=2)
+        self.plotter.add_mesh(foundation, color=(0.33, 0.42, 0.18), opacity=1.0, specular=0.5)
+
+        mast = pv.Cylinder(center=(25, 25, 2.5), direction=(0, 0, 1), radius=0.2, height=1)
+        self.plotter.add_mesh(mast, color=(0.76,0.70,0.50))
+
+        self.antenna_mesh = pv.Cube(center=(25, 25, 3.5), x_length=3.5, y_length=0.3, z_length=0.6)
+        self.antenna_actor = self.plotter.add_mesh(self.antenna_mesh, color=(0.85, 0.60, 0.10))
+        #----------------------
+        
+        # Engagement Sphere 1 (Inner - Red/Rust)
+        base_hemi_1 = pv.Sphere(radius=12, center=(25, 25, 0), end_phi=90)
+        self.plotter.add_mesh(base_hemi_1, color=(0.31, 0.18, 0.15), opacity=0.2, style='wireframe')
+
+        # Engagement Sphere 2 (Mid - Tactical Gold)
+        base_hemi_2 = pv.Sphere(radius=30, center=(25, 25, 0), end_phi=90)
+        self.plotter.add_mesh(base_hemi_2, color=(0.65, 0.45, 0.05), opacity=0.1, style='wireframe')
+
+        # Engagement Sphere 3 (Outer - Base Color)
+        base_hemi_3 = pv.Sphere(radius=40, center=(25, 25, 0), end_phi=90)
+        self.plotter.add_mesh(base_hemi_3, color=RGB_BASE, opacity=0.05, style='wireframe')
         
         # Drones
         self.friendly_meshes = []
@@ -69,6 +92,8 @@ class TacticalVisualizer:
     def render_step(self):
         # Reach deep into the nested env structure
         core = self.env.env 
+
+        self.antenna_mesh.rotate_z(5, point=(25, 25, 3.5), inplace=True)
 
         for i in range(self.num_friendly):
             if core.friendly_alive[i]:
