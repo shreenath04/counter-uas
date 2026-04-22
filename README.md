@@ -8,6 +8,9 @@ https://github.com/user-attachments/assets/d6d783b9-d994-4b68-a776-ca134eb9671d
 
 ![](Visualization-video.mp4)
 
+<video src="Visualization-video.mp4" controls="controls" style="max-width: 100%; height: auto;">
+  Your browser does not support the video tag.
+</video>
 
 ## Why This Exists
 
