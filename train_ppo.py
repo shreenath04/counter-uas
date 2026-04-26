@@ -38,8 +38,6 @@ def make_env():
     return _init
 
 def make_env_s():
-    # This ensures we return the actual environment instance
-      # Make sure this matches your file/class name
     from sb3_env import CounterUASGymEnv
     return CounterUASGymEnv()
 
